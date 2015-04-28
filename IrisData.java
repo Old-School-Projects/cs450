@@ -20,5 +20,9 @@ public class HardCodedClassifier extends Classifier {
          
     }
     
+    Override
+    public double classifyInstance(Instance instance){
+        return 0;
+    }    
     
 }

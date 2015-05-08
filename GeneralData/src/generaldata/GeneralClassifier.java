@@ -78,7 +78,9 @@ public class GeneralClassifier extends Classifier{
             classValueList.add(a.classValue());
         }
         
+        // note
         classValue = CalculateMaximum(classValueList);
+        
         
         return classValue;
     }

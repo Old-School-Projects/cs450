@@ -9,6 +9,16 @@ import weka.classifiers.Classifier;
 import weka.core.Instance;
 import weka.core.Instances;
 
+
+/**
+     * TO-DO:
+     * Read in data
+     * Randomize list
+     * Split into 70% training set and 30% testing set
+     * Display the accuracy of the new classifier
+     */
+
+
 /**
  *
  * @author paul

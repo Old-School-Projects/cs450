@@ -38,7 +38,6 @@ public class GeneralClassifier extends Classifier{
     
     @Override
     public double classifyInstance(Instance instance){
-        Instance nn = null;
         Instance tempInstance = null;
         int sum = 0;
         double classValue = 0.00;
@@ -68,17 +67,18 @@ public class GeneralClassifier extends Classifier{
         
         indexList = getLowestKValuesinList(distanceList, k);
         
+        // get the instances that are the NN's by their indexes
         for (int i : indexList) {
             nnList.add(instanceList.get(i));
         }
         
+        // 
         List<Double> classValueList = new ArrayList<Double>();
-        
         for (Instance a : nnList){
             classValueList.add(a.classValue());
         }
         
-        // note
+        // find the majority of same class
         classValue = CalculateMaximum(classValueList);
         
         
@@ -135,55 +135,6 @@ public class GeneralClassifier extends Classifier{
             }
         }
         return maximum;
-    }
-    
-    
-//    /**
-//     * FIND MODE
-//     * @param arr
-//     * @return 
-//     */
-//    public static double mode(double [] arr)
-//    {
-//        HashMap arrayVals = new HashMap();
-//        int maxOccurences = 1;
-//        double mode = arr[0];
-//
-//        for(int i = 0; i<arr.length; i++)
-//        {   
-//            double currentIndexVal = arr[i];
-//            if(arrayVals.containsKey(currentIndexVal)){
-//                int currentOccurencesNum = (Integer) arrayVals.get(currentIndexVal);
-//                currentOccurencesNum++;
-//                arrayVals.put(currentIndexVal, currentOccurencesNum );
-//                if(currentOccurencesNum >= maxOccurences)
-//                {
-//                    mode = currentIndexVal;
-//                    maxOccurences = currentOccurencesNum;
-//                }
-//            }
-//            else{
-//                arrayVals.put(arr[i], 1);
-//            }
-//        }
-//
-//
-//        return mode;
-//    }
-    
-    /**
-     * ADD ELEMENT TO ARRAY
-     * @param a
-     * @param e
-     * @return 
-     */
-    static double[] addElement(double[] a, double e) {
-        a  = Arrays.copyOf(a, a.length + 1);
-        a[a.length - 1] = e;
-        
-        return a;
-}
-    
-    
+    }   
     
 }

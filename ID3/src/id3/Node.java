@@ -20,6 +20,7 @@ public class Node {
     public ArrayList<Instance> bin_1;
     public ArrayList<Instance> bin_2;
     public ArrayList<Instance> bin_3;
+    public Node child;
     
     
     public Node(){
@@ -28,6 +29,7 @@ public class Node {
         bin_1 = new ArrayList<>();
         bin_2 = new ArrayList<>();
         bin_3 = new ArrayList<>();
+        child = new Node();
     }
 
     public Attribute getAttr() {

@@ -6,6 +6,7 @@
 package id3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import weka.classifiers.Classifier;
 import weka.core.Attribute;
 import weka.core.Instance;
@@ -28,9 +29,6 @@ public class TreeClassifier extends Classifier{
         for (int i = 0; i < instances.numAttributes() - 1; i++){
             attributelist.add(instances.attribute(i));
         }
-        
-        // put everything in their corresponding bins
-//        for (int i = 0; i < instances.numAttributes() - 1; i++){
         
             // go through all the instances for each attribute
         for (int inst = 0; inst < instances.numInstances() - 1; inst++){
@@ -57,7 +55,24 @@ public class TreeClassifier extends Classifier{
         } // attributes for loop
         
         
-        double value = calcEntropy();
+        double firstAttr = calcEntropy();
+        double secondAttr = calcEntropy();
+        double thirdAttr = calcEntropy();
+        double fourthAttr = calcEntropy();
+        
+        ArrayList<Double> attrlist = new ArrayList<>();
+        attrlist.add(firstAttr);
+        attrlist.add(secondAttr);
+        attrlist.add(thirdAttr);
+        attrlist.add(fourthAttr);
+        
+        
+        // find the lowest value
+        Collections.sort(attrlist);
+        
+        
+        
+        
         System.out.println("STOP");
         
     }
@@ -67,6 +82,7 @@ public class TreeClassifier extends Classifier{
         
         return 0;
     }
+    
     
     /**
      * CALCULATE THE ENTROPY
@@ -130,10 +146,15 @@ public class TreeClassifier extends Classifier{
         
         int total = num_0 + num_1 + num_2 + num_3;
         
-        double value0 = (num_0/total) * calcLog(num_0/total) * (-1);
-        double value1 = (num_1/total) * calcLog(num_1/total);
-        double value2 = ((num_2/total) * calcLog(num_2/total));
-        double value3 = (num_3/total) * calcLog(num_3/total);
+        double ratio_0 = (double)num_0/total;
+        double ratio_1 = (double)num_1/total;
+        double ratio_2 = (double)num_2/total;
+        double ratio_3 = (double)num_3/total;
+        
+        double value0 = (ratio_0) * calcLogBase2(ratio_0) * (-1);
+        double value1 = (ratio_1) * calcLogBase2(ratio_1);
+        double value2 = (ratio_2) * calcLogBase2(ratio_2);
+        double value3 = (ratio_3) * calcLogBase2(ratio_3);
         
         double entropy = value0 - value1 - value2 - value3;
         
@@ -143,17 +164,12 @@ public class TreeClassifier extends Classifier{
         return entropy;
     }
     
-    public void someFunction(){
-        
-           
-    }
-    
     /**
      * CALC LOG
      * @param num
      * @return 
      */
-    public double calcLog(double num){
+    public double calcLogBase2(double num){
         
         double nl1 = Math.log1p(num);
         double nl2 = Math.log1p(2);

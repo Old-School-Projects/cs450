@@ -18,6 +18,15 @@ public class Layer {
     public Layer(){
         neurons = new ArrayList<>();
     }
+    
+    public Layer(int numNeurons){
+        neurons = new ArrayList<>();
+        
+        for (int i = 0; i < numNeurons; i++){
+            Neuron neuron = new Neuron();
+            neurons.add(neuron);
+        }
+    }
 
     public List<Neuron> getNeurons() {
         return neurons;

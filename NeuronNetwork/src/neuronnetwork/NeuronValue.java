@@ -17,7 +17,7 @@ public class NeuronValue {
         value = 0.00;
     }
     
-    public NeuronValue(int value){
+    public NeuronValue(double value){
         this.value = value;
     }
     

@@ -24,7 +24,9 @@ public class NeuronNetwork {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         
-    String file = "/Users/paul/Desktop/BYU-Idaho/Spring2015/CS450/iris.csv";
+    //String file = "/Users/paul/Desktop/BYU-Idaho/Spring2015/CS450/iris.csv";
+    String file = "/Users/paul/Desktop/BYU-Idaho/Spring2015/CS450/pima-indians-diabetes.csv";
+    
         
     ConverterUtils.DataSource source = new ConverterUtils.DataSource(file);
     Instances data = source.getDataSet();
@@ -46,7 +48,7 @@ public class NeuronNetwork {
     Instances testSet = Filter.useFilter(data, remove);
     
     // train classifier
-    NeuronClassifier classifier = new NeuronClassifier();
+    NeuronClassifier classifier = new NeuronClassifier(3);
     classifier.buildClassifier(trainingSet); 
         
     // Evaluate classifier

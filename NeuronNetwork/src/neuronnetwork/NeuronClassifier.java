@@ -17,32 +17,44 @@ import weka.core.Instances;
  */
 public class NeuronClassifier extends Classifier{
 
+    private int numLayers;
+    
+    
+    
+    public NeuronClassifier(int nl){
+        numLayers = nl;
+    }
+    
     @Override
     public void buildClassifier(Instances inst) throws Exception {
         
-        int numLayers = 3;
         
         Network network = new Network(numLayers);
         List<Layer> layers = network.getLayers();
         
+        System.out.println("Layers size: " + layers.size());
         
-        for (int i = 0; i < layers.size() - 1; i++){
+        for (int layer = 0; layer < layers.size() - 1; layer++){
             // This is to control the number of neurons per layer
             int numNeurons = 0;
-            if (i == 0) {numNeurons = inst.numClasses();}
-            else if (i == 1) {numNeurons = 2;}
+            
+            if (layer == 0) {numNeurons = inst.numClasses();}
+            else if (layer == 1) {numNeurons = 2;}
             else {numNeurons = inst.numClasses();}
+            
+            System.out.println("Number of Neurons: " + numNeurons);
             
             for (int classes = 0; classes < numNeurons + 1; classes++){
                 //numClasses == the number of neurons
                 Neuron neuron = new Neuron();
                 double activation = 0.00;
  
+                // This is where back propagation didn't work
                 for (int it = 0; it < inst.numAttributes(); it++){
                     NeuronValue nv = new NeuronValue();
-                    if (i > 0) {
+                    if (layer > 0) {
                         nv.setValue(activation);
-                        neuron.setOutput(layers.get(i-1).getNeurons().get(it).getOutput());
+                        neuron.setOutput(layers.get(layer-1).getNeurons().get(classes).getOutput());
                     }
                     else{
                         nv.setValue(1); // I can't figure out how to get the values of each instance
@@ -75,21 +87,21 @@ public class NeuronClassifier extends Classifier{
 //                    System.out.println(nv.getValue());
 //                }
                 
-                layers.get(i).getNeurons().add(neuron);
+                layers.get(layer).getNeurons().add(neuron);
                 
             } 
                
             
         }
         
-        
+        System.out.println("I'm done!");
           
     }
     
     @Override
     public double classifyInstance(Instance instance){
         
-
+//        System.out.println("Classify!!!");
 
         return 0;
     }
